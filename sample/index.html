@@ -349,22 +349,32 @@
       <a href="#">Next</a>
     </div>
   </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Set today's date
+    const todayDateCell = document.getElementById('todayDate');
+    const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    todayDateCell.textContent = today;
+  
+    // Set the current time slot
+    const currentHour = new Date().getHours();
+    const startHour = String(currentHour % 12 || 12).padStart(2, '0'); // Two-digit format, 12-hour clock
+    const endHour = String((currentHour + 1) % 12 || 12).padStart(2, '0'); // Next hour in 12-hour format
+    const ampmStart = currentHour >= 12 ? 'PM' : 'AM';
+    const ampmEnd = (currentHour + 1) >= 12 ? 'PM' : 'AM';
+    const timeSlot = `${startHour}:00 ${ampmStart} to ${endHour}:00 ${ampmEnd}`;
+  
+    // Update the specific time slot
+    const timeSlotCell = document.querySelector('#reservationTableBody tr:first-child td:nth-child(6)');
+    if (timeSlotCell) {
+      timeSlotCell.textContent = timeSlot;
+    }
+  });
+  
+  
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-     
-      const todayDateCell = document.getElementById('todayDate');
-      const today = new Date();
-
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = today.toLocaleString('default', { month: 'short' });
-        const year = today.getFullYear();
-
-        const formattedDate = `${day}-${month}-${year}`;
-    
-      todayDateCell.textContent = formattedDate;
-
-    });
-  </script>
+</script>
+  
+  
 </body>
 </html>
